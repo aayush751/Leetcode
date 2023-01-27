@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        // yahan pr hm do vector le rhe hain jisme hmlog phle vector me given vector k sare left side se maximum value store kr rhe hain uske respective indexes pr.
+        
+        int size = height.size();
+        vector<int> l(size);
+        vector<int> r(size);
+        l[0] = height[0];
+        r[size-1] = height[size-1];
+        for(int i=1; i<size; i++)
+        {
+            if(height[i]>l[i-1])
+            {
+                l[i] = height[i];
+            }
+            else
+            {
+                l[i] = l[i-1];
+            }
+        }
+        for(int i=size-2; i>=0; i--)
+        {
+            if(height[i] > r[i+1])
+            {
+                r[i] = height[i];
+            }
+            else
+            {
+                r[i] = r[i+1];
+            }
+        }
+        int total = 0;
+        for(int i=1; i<=size-2; i++)
+        {
+            if(l[i-1]>height[i] and height[i]<r[i+1])
+            {
+                total = total + min((l[i-1] - height[i]),(r[i+1] - height[i]));
+            }
+        }
+        return total;
+
+    }
+};
