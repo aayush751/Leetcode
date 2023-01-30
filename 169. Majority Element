@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        // unordered_map<int,int> m;
+        // int times = nums.size()/2;
+        // int value=0;
+        // for(int i=0; i<nums.size(); i++)
+        // {
+        //     m[nums[i]]++;
+        // }
+        // for(int i=0; i<nums.size(); i++)
+        // {
+        //     if(m[nums[i]]>times)
+        //     {
+        //         value = nums[i];
+                
+        //     }
+        // }
+        // return value;
+        int idx = 0;
+        int cnt = 1;
+        for(int i=1; i<nums.size(); i++)
+        {
+            if(nums[idx] == nums[i])
+            {
+                cnt++;
+            }
+            else
+            {
+                cnt--;
+            }
+            if(cnt==0)
+            {
+                cnt = 1;
+                idx =  i;
+            }
+        }
+        return nums[idx];
+    }
+};
