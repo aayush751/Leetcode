@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int vowelStrings(vector<string>& wor, int left, int right) {
+        
+        int cnt = 0;
+        for(int i=left; i<=right; i++)
+        {
+            int j = wor[i].size() - 1;
+            if( (wor[i][0] == 'a' or wor[i][0] == 'e' or wor[i][0] == 'i' or wor[i][0] == 'o' or wor[i][0] == 'u') and (wor[i][j] == 'a' or wor[i][j] == 'e' or wor[i][j] == 'i' or wor[i][j] == 'o' or wor[i][j] == 'u'))
+            {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+};
