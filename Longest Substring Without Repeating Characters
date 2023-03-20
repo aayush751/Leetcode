@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        // unordered_map<char,int> m;
+        int ss = 0, e  = 0 , ans = 0;
+        int maxi = 0;
+        int len = 0;
+        vector<int> v(256,0);
+        for(e=0; e<s.size(); e++)
+        {
+            v[s[e]]++;
+            len++;
+            while(v[s[e]] > 1)
+            {
+                v[s[ss++]]--;
+                len--;
+            }
+            maxi = max(len, maxi);
+        }
+        return maxi;
+    }
+};
