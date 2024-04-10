@@ -1,17 +1,13 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-class Solution
-{
+class Solution {
 public:
-    int timeRequiredToBuy(vector<int> &tickets, int k)
-    {
+    int timeRequiredToBuy(vector<int>& tickets, int k) {
         int ans = 0;
-        for (int i = 0; i < tickets.size(); i++)
+
+        for(int i = 0; i < tickets.size(); i++ )
         {
-            if (i <= k)
+            if( i <= k )
             {
-                if (tickets[i] <= tickets[k])
+                if( tickets[i] <= tickets[k] )
                 {
                     ans += tickets[i];
                 }
@@ -22,7 +18,7 @@ public:
             }
             else
             {
-                if (tickets[i] < tickets[k])
+                if( tickets[i] < tickets[k] )
                 {
                     ans += tickets[i];
                 }
@@ -32,6 +28,7 @@ public:
                 }
             }
         }
+
         return ans;
     }
 };
