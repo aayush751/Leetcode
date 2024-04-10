@@ -1,22 +1,22 @@
 class Solution {
 public:
 
-    // void reverse( vector< int > & arr )
-    // {
-    //     int i = 0, j = arr.size() - 1;
-    //     while( i < j )
-    //     {
-    //         swap( arr[i], arr[j] );
-    //         i++;
-    //         j--;
-    //     }
-    // }
+    void reverse( vector< int > & arr )
+    {
+        int i = 0, j = arr.size() - 1;
+        while( i < j )
+        {
+            swap( arr[i], arr[j] );
+            i++;
+            j--;
+        }
+    }
     vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
 
 
         for(int i = 0; i < image.size(); i++ )
         {
-            reverse( image[i].begin(), image[i].end() );
+            reverse( image[i] );
         }
 
         for(int i = 0; i < image.size(); i++ )
