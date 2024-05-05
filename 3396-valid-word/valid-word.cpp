@@ -1,41 +1,48 @@
 class Solution {
 public:
     bool isValid(string word) {
-        
+        int n = word.size();
 
-        if( word.size() < 3 )
+        if( n < 3 )
         {
             return false;
         }
 
-    int vowelCount = 0;
-    int consonantCount = 0;
-    unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        int df = false, uf = false, vf = false, cf = false, lf = false;
 
-    for( char c: word )
-    {
-        if( isalnum(c) )
+        for(char c: word )
         {
-            if( vowels.find(c) != vowels.end() )
+            if( !isdigit(c) and !isalpha(c) )
             {
-                vowelCount++;
+                return false;
             }
-            else if( c >= 48 and c <= 57 )
+
+            if( isdigit(c) )
             {
-                continue;
+                df = true;
             }
-            else
+
+            if( islower(c) )
             {
-                consonantCount++;
+                lf = true;
+            }
+
+            if( isupper(c) )
+            {
+                uf = true;
+            }
+
+            if( vowels.count(c) )
+            {
+                vf = true;
+            }
+            else if( !vowels.count(c) and isalpha(c) )
+            {
+                cf = true;
             }
         }
-        else
-        {
-            return false;
-        }
-    }
 
-    return vowelCount > 0 and consonantCount > 0;
-
+        return ( df or lf or uf ) and vf and cf;
     }
 };
