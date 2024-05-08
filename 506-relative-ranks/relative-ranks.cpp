@@ -1,57 +1,45 @@
 class Solution {
 public:
+
+
+    bool compare(pair<int, int>& a, pair<int, int>& b) {
+        return a.first > b.first;
+    }
+
     vector<string> findRelativeRanks(vector<int>& score) {
-
-        int size = score.size();
-
-        vector< string > ans( size );
-
-        priority_queue< int > pq;
-
-        for(auto i: score )
+        int n = score.size();
+        vector< pair< int, int > > pv;
+        vector< string > ans(n);
+        for(int i = 0; i  < score.size(); i++ )
         {
-            pq.push(i);
+            pv.push_back( make_pair(score[i], i) );
         }
 
-        unordered_map< int, int > mp;
+        sort( begin(pv), end(pv) );
 
-        for(int i = 0; i < score.size(); i++ )
+        int rank = 0;
+        for(int i = pv.size() - 1; i > -1; i-- )
         {
-            mp[score[i]] = i;
-        }
+            rank++;
 
-        int k = 3;
-        int rank = 4;
-        while( !pq.empty() )
-        {
-            int top = pq.top();
-            pq.pop();
-
-            if( k == 3 )
+            if( rank == 1 )
             {
-                ans[mp[top]] = "Gold Medal";
-                k--;
+                ans[pv[i].second] = "Gold Medal";
             }
-            else if( k == 2 )
+            else if( rank == 2 )
             {
-                ans[mp[top]] = "Silver Medal";
-                k--;
+                ans[pv[i].second] = "Silver Medal";
             }
-            else if( k == 1 )
+            else if( rank == 3 )
             {
-                ans[mp[top]] = "Bronze Medal";
-                k--;
+                ans[pv[i].second] = "Bronze Medal";
             }
             else
             {
-                string temp = to_string(rank);
-                ans[mp[top]] = temp;
-                rank++;
+                ans[pv[i].second] = to_string( rank );
             }
-
         }
 
         return ans;
-        
     }
 };
