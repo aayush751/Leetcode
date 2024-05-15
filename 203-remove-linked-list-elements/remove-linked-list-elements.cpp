@@ -19,21 +19,34 @@ public:
         }
 
 
-        ListNode* temp = head;
+        ListNode* temp = head, *prev = nullptr;
 
-        while( temp and temp -> next )
+        // while( temp and temp -> next )
+        // {
+        //     if( temp -> next -> val == val )
+        //     {
+        //         temp -> next = temp -> next -> next;
+        //     }
+        //     else
+        //     {
+        //         temp = temp -> next;
+        //     }
+        // }
+
+        
+        while( temp )
         {
-            if( temp -> next -> val == val )
+            if( temp -> val == val )
             {
-                temp -> next = temp -> next -> next;
+                prev -> next = temp -> next;
+
             }
             else
             {
-                temp = temp -> next;
+                prev = temp;
             }
+            temp = temp -> next;
         }
-
-        
 
         return head;
     }
