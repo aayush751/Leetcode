@@ -12,42 +12,37 @@
 class Solution {
 public:
 
-    int height( TreeNode* root )
+    pair< bool, int > order( TreeNode* root )
     {
         // base case
         if( root == nullptr )
         {
-            return 0;
+            pair< bool, int > p = make_pair( true, 0 );
+            return p;
         }
 
-        int left = height( root -> left );
+        pair< bool, int > left = order( root -> left );
+        pair< bool, int > right = order( root -> right );
 
-        if( left == -1 )
+        bool leftAns = left.first;
+        bool rightAns = right.first;
+
+        bool diff = abs( left.second - right.second ) <= 1;
+
+        pair< bool, int > retur;
+        retur.second = max( left.second, right.second ) + 1;
+        if( leftAns and rightAns and diff )
         {
-            return -1;
+            retur.first = true;
         }
-
-        int right = height( root -> right );
-
-        if( right == -1 )
+        else
         {
-            return -1;
+            retur.first = false;
         }
-
-        if( abs( left - right ) > 1 )
-        {
-            return -1;
-        }
-
-        return 1 + max( left, right );
+        return retur;
     }
     bool isBalanced(TreeNode* root) {
-
-        if( height( root ) != -1 )
-        {
-            return true;
-        }
-
-        return false;
+        pair< bool, int > ans = order( root );
+        return ans.first;
     }
 };
