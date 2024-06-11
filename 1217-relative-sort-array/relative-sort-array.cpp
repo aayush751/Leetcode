@@ -1,34 +1,36 @@
 class Solution {
 public:
     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
-        map< int, int > mp;
 
-        // yahan ordered map esliye liye taki ordering k dhyaan rakhna hai wo element ka jo sirf arr1 me hai...usko ascending order me push_back krna hai
-        for(auto element: arr1 )
-        {
-            mp[element]++;
-        }
+        int maxEl = *max_element( begin(arr1), end(arr1) );
+
+        vector< int > count(maxEl + 1, 0 );
 
         vector< int > ans;
 
-        for(int i = 0; i < arr2.size(); i++ )
+        for(auto element: arr1 )
         {
-            while( mp[arr2[i]] > 0 )
+            count[element]++;
+        }
+
+        for(auto ele: arr2 )
+        {
+            while( count[ele]-- )
             {
-                ans.push_back( arr2[i] );
-                mp[arr2[i]]--;
+                ans.push_back(ele);
             }
         }
 
-        for( auto [ key, value]: mp )
+        for(int el = 0; el <= maxEl; el++ )
         {
-            while( value > 0 )
+            int freq = count[el];
+
+            while( freq > 0 )
             {
-                ans.push_back( key );
-                value--;
+                ans.push_back( el );
+                freq--;
             }
         }
-
         return ans;
     }
 };
