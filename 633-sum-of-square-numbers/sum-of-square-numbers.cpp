@@ -1,49 +1,25 @@
 class Solution {
 public:
-    int getSqrt( int c )
-    {
-        int low = 0, high = c;
-        long long mid = low + ( high - low ) / 2;
-
-        int ans = -1;
-
-        while( low <= high )
-        {
-            if( mid * mid <= c )
-            {
-                ans = mid;
-                low = mid + 1;
-            }
-            else
-            {
-                high = mid - 1;
-            }
-            mid = low + ( high - low ) / 2;
-        }
-
-        return ans;
-    }
     bool judgeSquareSum(int c) {
-        long long i = 0, j = getSqrt(c);
+        long long i = 0, j = sqrt(c);
 
         while( i <= j )
         {
-            long long sum = i * i + j * j;
-
+            long long  sum = i * i + j * j;
             if( sum == c )
             {
-                return 1;
+                return true;
             }
-            else if( sum < c )
-            {
-                i++;
-            }
-            else
+            else if( sum > c )
             {
                 j--;
             }
+            else
+            {
+                i++;
+            }
         }
 
-        return 0;
+        return false;
     }
 };
