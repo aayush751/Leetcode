@@ -1,31 +1,34 @@
 class Solution {
 public:
-    int maxProfitAssignment(vector<int>& d, vector<int>& p, vector<int>& w ) {
+    int maxProfitAssignment(vector<int>& d, vector<int>& p, vector<int>& w) {
         int n = d.size();
         int m = w.size();
+        int maxEl = *max_element( d.begin(), d.end() );
 
-        vector< pair< int, int > > jobs(n);
+        vector< int > prof( maxEl + 1, 0 );
 
         for(int i = 0; i < n; i++ )
         {
-            jobs[i] = { d[i], p[i] };
+            prof[d[i]] = max( prof[d[i]], p[i] );
         }
 
+        for(int i = 1; i < prof.size(); i++ )
+        {
+            prof[i] = max( prof[i], prof[i - 1] );
+        }
 
-        sort( jobs.begin(), jobs.end() );
-        sort( w.begin(), w.end() );
-
-        int profSum = 0, maxProfit = 0, j = 0;
+        int profSum = 0;
 
         for(int i = 0; i < m; i++ )
         {
-            while( j < m and jobs[j].first <= w[i] )
+            if( w[i] <= maxEl )
             {
-                maxProfit = max( maxProfit, jobs[j].second );
-                j++;
+                profSum += prof[w[i]];
             }
-
-            profSum += maxProfit;
+            else
+            {
+                profSum += prof[maxEl];
+            }
         }
 
         return profSum;
