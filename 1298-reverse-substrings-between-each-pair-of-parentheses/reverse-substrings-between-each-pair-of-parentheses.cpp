@@ -1,42 +1,41 @@
 class Solution {
 public:
     string reverseParentheses(string s) {
-        // sbse phle stack se bna rhe hain ye quesiton ko
-        stack<char> st;
+        // now using wormhole technique
+        int n = s.size();
+        vector<int> oppoIndex(n,-1);
+        stack<int> st;
 
-        for(int i = 0; i < s.size(); i++ )
+        for(int i = 0; i < n; i++ )
         {
-            if( s[i] == ')' )
+            if( s[i] == '(' )
             {
-                string temp = "";
-
-                while( st.top() != '(' )
-                {
-                    temp += st.top();
-                    st.pop();
-                }
-                st.pop();
-
-                for( char ch: temp )
-                {
-                    st.push(ch);
-                }
+                st.push( i );
             }
-            else
+            else if( s[i] == ')' )
             {
-                st.push( s[i] );
+                int openIndex = st.top();
+                st.pop();
+                oppoIndex[openIndex] = i;
+                oppoIndex[i] = openIndex;
             }
         }
 
         string ans = "";
-
-        while( !st.empty() )
+        int dir = 1;
+        for(int i = 0; i < n; i += dir )
         {
-            ans += st.top();
-            st.pop();
+            if( s[i] == '(' or s[i] == ')' )
+            {
+                i = oppoIndex[i];
+                dir = dir * -1;
+            }
+            else
+            {
+                ans += s[i];
+            }
         }
 
-        reverse( begin(ans), end(ans) );
         return ans;
     }
 };
