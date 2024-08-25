@@ -12,20 +12,23 @@
 class Solution {
 public:
 
-    void order( TreeNode* node, vector<int>& res )
+    void postOrder( TreeNode* root, vector< int >& v )
     {
-        if( node == nullptr )
+        if( root == nullptr )
         {
             return;
         }
 
-        order( node -> left, res );
-        order( node -> right, res );
-        res.push_back( node -> val );
+        postOrder( root -> left, v );
+        postOrder( root -> right, v );
+        v.push_back( root -> val );
+
+        return;
     }
     vector<int> postorderTraversal(TreeNode* root) {
-        vector< int > res;
-        order( root, res );
-        return res;
+        vector< int > ans;
+        postOrder( root, ans );
+
+        return ans;
     }
 };
