@@ -11,10 +11,9 @@
  */
 class Solution {
 public:
-
-    void solve( TreeNode* a, TreeNode* b, int level )
+    void solve( TreeNode* &a, TreeNode* &b, int level )
     {
-        if( a == nullptr or b == nullptr )
+        if( a == nullptr and b == nullptr )
         {
             return;
         }
@@ -26,11 +25,9 @@ public:
 
         solve( a -> left, b -> right, level + 1 );
         solve( a -> right, b -> left, level + 1 );
-
         return;
     }
     TreeNode* reverseOddLevels(TreeNode* root) {
-        
         if( root == nullptr )
         {
             return nullptr;
