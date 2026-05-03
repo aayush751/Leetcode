@@ -13,20 +13,20 @@ public:
             return false;
         }
 
-        char x = s[0];
-        for(int i = 1; i < s.size(); i++ )
+        char ch = s[0];
+
+        for(int j = 1; j < s.size(); j++ )
         {
-            s[i - 1] = s[i];
+            s[j - 1] = s[j];
         }
 
         int n = s.size();
-        s[n - 1] = x;
+        s[n - 1] = ch;
+
         return solve( s, goal, i + 1 );
     }
-
-
     bool rotateString(string s, string goal) {
-        bool ans = solve( s, goal, 0 );
-        return ans;
+        int i = 0;
+        return solve( s, goal, 0 );
     }
 };
